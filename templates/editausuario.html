@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar usuario</title>
+</head>
+<body>
+    <h5>Editar los datos de un usuario:</h5><br>
+    <form action="/confirmausuario" method="post">
+        <label for="id">Id usuario: </label>
+        <input type="text" value="{{usu[0]}}" readonly name="id"><br>
+        <label for="nom">Nombre: </label>
+        <input type="text" value="{{usu[1]}}" required name="nom"><br>
+        <label for="email">Email: </label>
+        <input type="text" value="{{usu[3]}}" name="email"><br>
+        <br><br>
+        <button>Guardar</button> <br>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        <h3>{{msg}}</h3>
+    </form>
+    
+</body>
+</html>
