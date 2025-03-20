@@ -13,7 +13,7 @@ mi_DB = mysql.connector.connect(host="localhost",
                                 database="proyecto")
 principal.config['CARPETAU'] = os.path.join('uploads')
 principal.secret_key = str(randint(10000,99999))
-#principal.config["PERMANENT_SESSION_LIFETIME"] = timedelta(seconds=10)
+
 
 
 @principal.route("/uploads/<nombre>")
@@ -29,30 +29,30 @@ RECIBE DESDE UN FORMULARIO DE METHODS POST
 '''
 @principal.route("/login", methods=["POST"])
 def login():
-    #REQUEST.FORM RECUPERA DATOS DEL USUARIO.INPUT DE UN FORMULARIO DE METHOD POST#
+
     id = request.form['id']
     contra = request.form['contra']
-    #CON LOS DATOS OBTENIDOS CONVERTIDOS EN VARIABLES PYTHON, PODEMOS CIFRAR SU CONTRA CON LA LIBRERIA HASLIB 512BITS --> A 120 CON HEXDIGEST#
+    
     cifrada = hashlib.sha512(contra.encode("utf-8")).hexdigest()
     cursor = mi_DB.cursor()
     sql = f"SELECT nombre FROM usuarios WHERE id_usuario='{id}' and contrasena='{cifrada}'"
     cursor.execute(sql)
-    #EN LA SIGUIENTE LINEA ".FETCHALL" TRAE LOS DATOS DEL CURSOR Y LOS GUARDA EN LA VARIABLE RESULTADO#
+    
     resultado = cursor.fetchall()
-    # LEN ES UNA FUNCION QUE CALCULA EL TAMAÑO#
+    
     if len(resultado)>0:
         session["login"] = True
         session["id"] = id
         session["nombre"] = resultado[0][0]
-        #SI RUTA LOGIN ("BACKEND") QUIERE MANDAR A OTRA RUTA ("BACKEND") USAMOS REDIRECT("NAME")#
+        
         return redirect("/opciones")
     else:
-        #SI RUTA LOGIN ("BACKEND") QUIERE MANDAR A OTRA RUTA ("FRONTEND") USAMOS RENDER_TEMPLATE("NAME.HTML")#
+        
         return render_template("index.html",msg = "Credenciales incorrectas")
 
 @principal.route("/opciones")
 def opciones():
-    #session.get trae los datos guardados del navegador#
+    
     if session.get('login') == True:
         nom=session.get('nombre')
         return render_template("opciones.html", msg="Bienvenido(a) "+nom)
@@ -66,9 +66,9 @@ def pacientes():
         cursor = mi_DB.cursor()
         sql = "SELECT * FROM pacientes WHERE borrado=0"
         cursor.execute(sql)
-        #A CONTINUACION TRAEMOS LOS DATOS DE LA TABLA "PACIENTES" CON CURSOR.FETCHALL Y SE GUARDA COMO VARIABLE PACIENTES#
+    
         pacientes = cursor.fetchall()
-        return render_template("pacientes.html", paci = pacientes)#AQUI MANDAMOS A RENDERIZAR EL HTML Y LA VARIABLE PACIENTES CON EL NOMBRE#git 
+        return render_template("pacientes.html", paci = pacientes)
     else:
         return redirect("/")
 
