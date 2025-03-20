@@ -63,19 +63,19 @@ def opciones():
 @principal.route("/pacientes")
 def pacientes():
     if session.get('login') == True:
-     cursor = mi_DB.cursor()
-     sql = "SELECT * FROM pacientes WHERE borrado=0"
-     cursor.execute(sql)
-     #A CONTINUACION TRAEMOS LOS DATOS DE LA TABLA "PACIENTES" CON CURSOR.FETCHALL Y SE GUARDA COMO VARIABLE PACIENTES#
-     pacientes = cursor.fetchall()
-     return render_template("pacientes.html", paci = pacientes)#AQUI MANDAMOS A RENDERIZAR EL HTML Y LA VARIABLE PACIENTES CON EL NOMBRE#git 
+        cursor = mi_DB.cursor()
+        sql = "SELECT * FROM pacientes WHERE borrado=0"
+        cursor.execute(sql)
+        #A CONTINUACION TRAEMOS LOS DATOS DE LA TABLA "PACIENTES" CON CURSOR.FETCHALL Y SE GUARDA COMO VARIABLE PACIENTES#
+        pacientes = cursor.fetchall()
+        return render_template("pacientes.html", paci = pacientes)#AQUI MANDAMOS A RENDERIZAR EL HTML Y LA VARIABLE PACIENTES CON EL NOMBRE#git 
     else:
         return redirect("/")
 
 @principal.route("/nuevopaciente")
 def nuevopaciente():
     if session.get('login') == True:
-     return render_template("nuevopaciente.html")
+        return render_template("nuevopaciente.html")
     else:
         return redirect("/")
 
@@ -105,11 +105,11 @@ def guardapaciente():
 @principal.route("/editapaciente/<id>")
 def editapaciente(id):
     if session.get('login') == True:
-     cursor = mi_DB.cursor()
-     sql = f"SELECT * FROM pacientes WHERE id_paciente='{id}'"
-     cursor.execute(sql)
-     resultado = cursor.fetchall()
-     return render_template("editarpaciente.html", paci = resultado[0])
+        cursor = mi_DB.cursor()
+        sql = f"SELECT * FROM pacientes WHERE id_paciente='{id}'"
+        cursor.execute(sql)
+        resultado = cursor.fetchall()
+        return render_template("editarpaciente.html", paci = resultado[0])
     else:
         return redirect("/")
 @principal.route("/confirmapaciente", methods=['POST'])
@@ -140,11 +140,11 @@ def confirmapaciente():
 @principal.route("/borrapaciente/<id>")
 def borrapaciente(id):
     if session.get('login') == True:
-     cursor = mi_DB.cursor()
-     sql = f"UPDATE pacientes SET borrado=1 WHERE id_paciente='{id}'"
-     cursor.execute(sql)
-     mi_DB.commit()
-     return redirect("/pacientes")
+        cursor = mi_DB.cursor()
+        sql = f"UPDATE pacientes SET borrado=1 WHERE id_paciente='{id}'"
+        cursor.execute(sql)
+        mi_DB.commit()
+        return redirect("/pacientes")
     else:
         return redirect("/")
 
@@ -153,18 +153,18 @@ def borrapaciente(id):
 @principal.route("/usuarios")
 def usuarios():
     if session.get('login') == True:
-     cursor = mi_DB.cursor()
-     sql = "SELECT * FROM usuarios WHERE borrado=0"
-     cursor.execute(sql)
-     usuarios = cursor.fetchall()
-     return render_template("usuarios.html", usu = usuarios)
+        cursor = mi_DB.cursor()
+        sql = "SELECT * FROM usuarios WHERE borrado=0"
+        cursor.execute(sql)
+        usuarios = cursor.fetchall()
+        return render_template("usuarios.html", usu = usuarios)
     else:
         return redirect("/")
 
 @principal.route("/nuevousuario")
 def nuevousuario():
     if session.get('login') == True:
-     return render_template("nuevousuario.html")
+        return render_template("nuevousuario.html")
     else:
         return redirect("/")
     
@@ -190,11 +190,11 @@ def guardausuario():
 @principal.route("/editausuario.html/<id>")
 def editausuario(id):
     if session.get('login') == True:
-     cursor = mi_DB.cursor()
-     sql = f"SELECT * FROM usuarios WHERE id_usuario='{id}'"
-     cursor.execute(sql)
-     resultado = cursor.fetchall()
-     return render_template("editarpaciente.html", usu = resultado[0])
+        cursor = mi_DB.cursor()
+        sql = f"SELECT * FROM usuarios WHERE id_usuario='{id}'"
+        cursor.execute(sql)
+        resultado = cursor.fetchall()
+        return render_template("editarpaciente.html", usu = resultado[0])
     else:
         return redirect("/")
 
