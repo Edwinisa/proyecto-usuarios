@@ -1,18 +1,6 @@
-from datetime import datetime, timedelta
-import os
-from random import randint
-from flask import Flask, redirect, render_template, request, send_from_directory, session
-import mysql.connector
-import hashlib
+from conexion import *
+from flask import Flask, render_template, request, redirect, session, send_from_directory
 
-principal = Flask(__name__)
-mi_DB = mysql.connector.connect(host="localhost",
-                                port="3306",
-                                user="root",
-                                password="",
-                                database="proyecto")
-principal.config['CARPETAU'] = os.path.join('uploads')
-principal.secret_key = str(randint(10000,99999))
 
 
 
@@ -23,10 +11,7 @@ def uploads(nombre):
 @principal.route("/")
 def index():
     return render_template("index.html")
-'''
-A LA RUTA ACONTINUACION "LOGIN" ES METHODS POST PORQUE
-RECIBE DESDE UN FORMULARIO DE METHODS POST
-'''
+
 @principal.route("/login", methods=["POST"])
 def login():
 
